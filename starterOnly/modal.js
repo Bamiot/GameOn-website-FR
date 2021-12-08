@@ -72,72 +72,77 @@ function validForm(event) {
 
 // validation functions
 function validFirst() {
+  const element = formData[0]
   if (firstNameInput.value === '' || firstNameInput.value.length < 2) {
-    firstNameInput.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    firstNameInput.style.border = '2px solid green'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validLast() {
+  const element = formData[1]
   if (lastNameInput.value === '' || lastNameInput.value.length < 2) {
-    lastNameInput.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    lastNameInput.style.border = '2px solid green'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validEmail() {
+  const element = formData[2]
   if (emailInput.value === '' || !emailInput.value.match(mailRegex)) {
-    emailInput.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    emailInput.style.border = '2px solid green'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validBirthDate() {
+  const element = formData[3]
   if (birthDateInput.value === '') {
-    birthDateInput.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    console.log(birthDateInput.value)
-    birthDateInput.style.border = '2px solid green'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validQuantity() {
+  const element = formData[4]
   if (
     quantityInput.value !== '' &&
     (quantityInput.value < 1 || quantityInput.value > 99)
   ) {
-    quantityInput.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    quantityInput.style.border = '2px solid green'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validLocation() {
+  const element = formData[5]
   let flag = false
   for (const location of locations) if (location.checked) flag = true
   if (quantityInput.value !== '' && !flag) {
-    formData[5].style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    formData[5].style.border = '2px solid transparent'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
 function validCGU() {
-  const checkboxVisibleElement = formData[6].childNodes[3].childNodes[1]
+  const element = formData[6]
   if (!checkbox1.checked) {
-    checkboxVisibleElement.style.border = '2px solid red'
+    element.setAttribute('data-error-visible', true)
     return true
   } else {
-    checkboxVisibleElement.style.border = '0px solid transparent'
+    element.setAttribute('data-error-visible', false)
     return false
   }
 }
