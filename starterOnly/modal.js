@@ -47,13 +47,15 @@ function validForm(event) {
   const birthdateError = validBirthDate()
   const quantityError = validQuantity()
   const locationError = validLocation()
+  const cguError = validCGU()
   console.log({
     firstError,
     lastError,
     emailError,
     birthdateError,
     quantityError,
-    locationError
+    locationError,
+    cguError
   })
   if (
     firstError ||
@@ -61,7 +63,8 @@ function validForm(event) {
     emailError ||
     birthdateError ||
     quantityError ||
-    locationError
+    locationError ||
+    cguError
   ) {
     event.preventDefault()
   }
@@ -121,10 +124,20 @@ function validLocation() {
   let flag = false
   for (const location of locations) if (location.checked) flag = true
   if (quantityInput.value !== '' && !flag) {
-    //locations.style.border = '2px solid red'
+    formData[5].style.border = '2px solid red'
     return true
   } else {
-    //locations.style.border = '2px solid transparent'
+    formData[5].style.border = '2px solid transparent'
+    return false
+  }
+}
+function validCGU() {
+  const checkboxVisibleElement = formData[6].childNodes[3].childNodes[1]
+  if (!checkbox1.checked) {
+    checkboxVisibleElement.style.border = '2px solid red'
+    return true
+  } else {
+    checkboxVisibleElement.style.border = '0px solid transparent'
     return false
   }
 }
