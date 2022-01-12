@@ -50,15 +50,8 @@
         <div class="content">
           <span class="close"></span>
           <div class="modal-body">
-            <form
-              name="reserve"
-              action="index.html"
-              method="get"
-              onsubmit="return validate();">
-              <div
-                class="formData"
-                data-error="Veuillez entrer 2 caractères ou plus pour le champ du prénom."
-                data-error-visible="false">
+            <form name="reserve" action="index.html" method="get">
+              <div class="formData" data-error-visible="false">
                 <label for="first">Prénom</label><br />
                 <input
                   class="text-control"
@@ -67,24 +60,15 @@
                   name="first"
                   minlength="2" /><br />
               </div>
-              <div
-                class="formData"
-                data-error="Veuillez entrer 2 caractères ou plus pour le champ du prénom."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false">
                 <label for="last">Nom</label><br />
                 <input class="text-control" type="text" id="last" name="last" /><br />
               </div>
-              <div
-                class="formData"
-                data-error="Veuillez saisir un email au format valide."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false">
                 <label for="email">E-mail</label><br />
                 <input class="text-control" type="email" id="email" name="email" /><br />
               </div>
-              <div
-                class="formData"
-                data-error="Veuillez saisir une date de naissance valide au format jj / mm / aaaa."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false">
                 <label for="birthdate">Date de naissance</label><br />
                 <input
                   class="text-control"
@@ -92,10 +76,7 @@
                   id="birthdate"
                   name="birthdate" /><br />
               </div>
-              <div
-                class="formData"
-                data-error="Veuillez entrer une valeur numérique pour le nombre de tournois."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false">
                 <label for="quantity"
                   >À combien de tournois GameOn avez-vous déjà participé ?</label
                 ><br />
@@ -108,10 +89,8 @@
                   max="99" />
               </div>
               <p class="text-label">Quelles villes ?</p>
-              <div
-                class="formData"
-                data-error="Veuillez choisir une ville."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false" id="city">
+                >
                 <input
                   class="checkbox-input"
                   type="radio"
@@ -174,10 +153,7 @@
                 >
               </div>
 
-              <div
-                class="formData"
-                data-error="Vous devez vérifier que vous acceptez les termes et conditions."
-                data-error-visible="false">
+              <div class="formData" data-error-visible="false">
                 <input
                   class="checkbox-input"
                   type="checkbox"
@@ -192,7 +168,7 @@
                 <input class="checkbox-input" type="checkbox" id="checkbox2" />
                 <label class="checkbox2-label" for="checkbox2">
                   <span class="checkbox-icon"></span>
-                  Je Je souhaite être prévenu des prochains évènements.
+                  Je souhaite être prévenu des prochains évènements.
                 </label>
                 <br />
               </div>

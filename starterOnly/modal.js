@@ -22,10 +22,34 @@ const locations = document.querySelectorAll('.checkbox-input[name="location"]')
 const checkbox1 = document.getElementById('checkbox1')
 const checkbox2 = document.getElementById('checkbox2')
 const submitBtn = document.querySelector('.btn-submit')
+// wrap elements for error message
+const firstNameWrap = formData[0]
+const lastNameWrap = formData[1]
+const emailWrap = formData[2]
+const birthDateWrap = formData[3]
+const quantityWrap = formData[4]
+const locationWrap = formData[5]
+const cguWrap = formData[6]
+
+const errorMessages = [
+  'Veuillez entrer 2 caractères ou plus pour le champ du prénom.',
+  'Veuillez entrer 2 caractères ou plus pour le champ du nom.',
+  'Veuillez entrer une adresse mail valide.',
+  'Veuillez entrer une date valide au format jj/mm/aaaa.',
+  'Veuillez entrer une valeur numérique pour le nombre de tournois.',
+  'Veuillez cocher au moins une case.',
+  'Veuillez accepter les conditions.'
+]
+
+// add error message
+errorMessages.forEach((message, index) => {
+  formData[index].setAttribute('data-error', message)
+})
 
 //regEx
-let mailRegex =
+const mailRegex =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/ // eslint-disable-line
+const nameRegex = /^[a-zA-Zéèêëàâîïôûç\- ]+$/
 
 // launch modal event
 modalBtn.forEach(btn => btn.addEventListener('click', launchModal))
@@ -44,31 +68,33 @@ function closeModal() {
 
 function checkElementError(element, condition) {
   element.setAttribute('data-error-visible', condition)
-  console.log(element)
   return condition
 }
 
 // conditions
 const isEmpty = element => element.value === ''
-const textCondidtion = element => isEmpty(element) || element.value.length < 2
-const mailCondidtion = element =>
-  textCondidtion(element) || !mailRegex.test(element.value)
+const textCondidtion = element =>
+  isEmpty(element) || element.value.length < 2 || !nameRegex.test(element.value)
+const mailCondidtion = element => !mailRegex.test(element.value)
 const quantityCondidtion = element =>
   !isEmpty(element) && (element.value < 1 || element.value > 99)
+const isValidDate = date => !isNaN(new Date(date).getTime())
 
 // element validation
-const checkFirst = () => checkElementError(formData[0], textCondidtion(firstNameInput))
-const checkLast = () => checkElementError(formData[1], textCondidtion(lastNameInput))
-const checkEmail = () => checkElementError(formData[2], mailCondidtion(emailInput))
-const checkBirthDate = () => checkElementError(formData[3], isEmpty(birthDateInput))
+const checkFirst = () => checkElementError(firstNameWrap, textCondidtion(firstNameInput))
+const checkLast = () => checkElementError(lastNameWrap, textCondidtion(lastNameInput))
+const checkEmail = () => checkElementError(emailWrap, mailCondidtion(emailInput))
+const checkBirthDate = () =>
+  checkElementError(birthDateWrap, !isValidDate(birthDateInput.value))
 const checkQuantity = () =>
-  checkElementError(formData[4], quantityCondidtion(quantityInput))
+  checkElementError(quantityWrap, quantityCondidtion(quantityInput))
 const checkLocation = () => {
   let flag = false
   for (const location of locations) if (location.checked) flag = true
-  return checkElementError(locations, !isEmpty(formData[4]) && !flag)
+  return checkElementError(locationWrap, !isEmpty(quantityInput) && !flag)
 }
-const checkCGU = () => checkElementError(formData[6], !checkbox1.checked)
+const checkCGU = () => checkElementError(cguWrap, !checkbox1.checked)
+
 // form validation event
 firstNameInput.addEventListener('focusout', checkFirst)
 lastNameInput.addEventListener('focusout', checkLast)
@@ -79,6 +105,7 @@ checkbox1.addEventListener('change', checkCGU)
 
 // validate form
 function validForm(event) {
+  event.preventDefault()
   if (
     checkFirst() ||
     checkLast() ||
@@ -88,6 +115,7 @@ function validForm(event) {
     checkLocation() ||
     checkCGU()
   ) {
-    event.preventDefault()
+  } else {
+    console.log('nickel !!!!!!')
   }
 }
