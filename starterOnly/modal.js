@@ -119,5 +119,11 @@ function validForm(event) {
     document.querySelector('.text-label').style.opacity = 0
     document.querySelector('.btn-submit').value = 'Fermer'
     submitBtn.addEventListener('click', closeModal)
+    const succesDiv = document.createElement('div')
+    succesDiv.classList.add('succes')
+    succesDiv.innerHTML = 'Merci pour<br/>votre inscription'
+    document
+      .querySelector('.bground > .content > .modal-body > form')
+      .insertBefore(succesDiv, document.querySelector('.btn-submit'))
   }
 }
