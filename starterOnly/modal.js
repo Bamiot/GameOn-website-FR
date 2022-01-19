@@ -61,7 +61,6 @@ submitBtn.addEventListener('click', validForm)
 function launchModal() {
   modalbg.style.display = 'block'
 }
-
 // close modal form
 function closeModal() {
   modalbg.style.display = 'none'
@@ -71,7 +70,6 @@ function checkElementError(element, condition) {
   element.setAttribute('data-error-visible', condition)
   return condition
 }
-
 // conditions
 const isEmpty = element => element.value === ''
 const textCondidtion = element =>
@@ -117,6 +115,9 @@ function validForm(event) {
     checkCGU()
   ) {
   } else {
-    console.log('nickel !!!!!!')
+    formData.forEach(e => (e.style.opacity = 0))
+    document.querySelector('.text-label').style.opacity = 0
+    document.querySelector('.btn-submit').value = 'Fermer'
+    submitBtn.addEventListener('click', closeModal)
   }
 }
