@@ -76,7 +76,7 @@ const textCondidtion = element =>
   isEmpty(element) || element.value.length < 2 || !nameRegex.test(element.value)
 const mailCondidtion = element => !mailRegex.test(element.value)
 const quantityCondidtion = element =>
-  !isEmpty(element) && (element.value < 1 || element.value > 99)
+  isEmpty(element) || element.value < 0 || element.value > 99
 const isValidDate = date => !isNaN(new Date(date).getTime())
 
 // element validation
@@ -89,8 +89,9 @@ const checkQuantity = () =>
   checkElementError(quantityWrap, quantityCondidtion(quantityInput))
 const checkLocation = () => {
   let flag = false
+  console.log(quantityInput.value, typeof quantityInput.value)
   for (const location of locations) if (location.checked) flag = true
-  return checkElementError(locationWrap, !isEmpty(quantityInput) && !flag)
+  return checkElementError(locationWrap, quantityInput.value > 0 && !flag)
 }
 const checkCGU = () => checkElementError(cguWrap, !checkbox1.checked)
 
@@ -127,3 +128,6 @@ function validForm(event) {
       .insertBefore(succesDiv, document.querySelector('.btn-submit'))
   }
 }
+
+// champs non vide pour nle nombre de tournois
+// clear modal
