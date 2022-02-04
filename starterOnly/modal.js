@@ -64,6 +64,13 @@ function launchModal() {
 // close modal form
 function closeModal() {
   modalbg.style.display = 'none'
+
+  formData.forEach(e => (e.style.opacity = 1))
+  document.querySelector('.text-label').style.opacity = 1
+  document.querySelector('.btn-submit').value = "C'est parti"
+  submitBtn.addEventListener('click', validForm)
+
+  document.querySelector('.succes').remove()
 }
 
 function checkElementError(element, condition) {
@@ -76,7 +83,7 @@ const textCondidtion = element =>
   isEmpty(element) || element.value.length < 2 || !nameRegex.test(element.value)
 const mailCondidtion = element => !mailRegex.test(element.value)
 const quantityCondidtion = element =>
-  isEmpty(element) || element.value < 0 || element.value > 99
+  isEmpty(element) || parseInt(element.value) < 0 || parseInt(element.value) > 99
 const isValidDate = date => !isNaN(new Date(date).getTime())
 
 // element validation
@@ -89,9 +96,8 @@ const checkQuantity = () =>
   checkElementError(quantityWrap, quantityCondidtion(quantityInput))
 const checkLocation = () => {
   let flag = false
-  console.log(quantityInput.value, typeof quantityInput.value)
   for (const location of locations) if (location.checked) flag = true
-  return checkElementError(locationWrap, quantityInput.value > 0 && !flag)
+  return checkElementError(locationWrap, parseInt(quantityInput.value) > 0 && !flag)
 }
 const checkCGU = () => checkElementError(cguWrap, !checkbox1.checked)
 
@@ -117,6 +123,8 @@ function validForm(event) {
   ) {
   } else {
     formData.forEach(e => (e.style.opacity = 0))
+    document.querySelectorAll('.formData input').forEach(e => (e.value = ''))
+    formData.forEach(e => checkElementError(e, false))
     document.querySelector('.text-label').style.opacity = 0
     document.querySelector('.btn-submit').value = 'Fermer'
     submitBtn.addEventListener('click', closeModal)
